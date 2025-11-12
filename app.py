@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from sqlalchemy import create_engine, Column, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
+from flask import render_template
 import os
 
 app = Flask(__name__)
@@ -95,6 +96,19 @@ def get_all():
         for r in records
     ]
     return jsonify(result)
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("index.html")
+
+@app.route("/reset_db", methods=["POST"])
+def reset_db():
+    """Delete all game records"""
+    db = SessionLocal()
+    db.query(GameInstance).delete()
+    db.commit()
+    db.close()
+    return jsonify({"status": "success", "message": "All records deleted"})
 
 @app.route("/")
 def home():
