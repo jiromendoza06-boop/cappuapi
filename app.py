@@ -32,7 +32,7 @@ Base.metadata.create_all(engine)
 # ==========================
 # API Endpoints
 # ==========================
-
+# pag nagstart ang game
 @app.route("/init_game", methods=["POST"])
 def init_game():
     """Initialize a new game and return its ID"""
@@ -46,7 +46,7 @@ def init_game():
     print(f'added new game with id {game_id}')
     return jsonify({"game_id": game_id})
 
-
+# pag nagend ang timer
 @app.route("/update_game", methods=["POST"])
 def update_game():
     """Update customer stats for a given game_id"""
